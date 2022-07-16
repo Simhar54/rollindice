@@ -1,0 +1,83 @@
+* {
+  box-sizing: border-box;
+}
+
+main {
+  width: 100vw;
+  background-color: #598d5a;
+  font-family: "Lato", sans-serif;
+  font-size: medium;
+}
+
+.board {
+  height: 100vh;
+  min-height: 400px;
+}
+
+.side {
+  background-color: black;
+  background-image: url(./ressource/image/six-sided-dice_too.svg);
+  color: white;
+  background-position: center;
+  text-align: center;
+  background-repeat: repeat-y;
+}
+
+.bgDice {
+  background-image: url(./ressource/image/six-sided-dice_too.svg);
+
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.playerBox {
+  background-color: #f2e7bf;
+  width: 60%;
+  height: 10em;
+  border: 2px solid #ccc19b;
+  text-align: center;
+  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.57);
+}
+
+.p1box {
+  border-radius: 5px 5px 40px 5px;
+}
+
+.p2box {
+  border-radius: 40px 5px 5px 5px;
+}
+
+button {
+  width: 100px;
+  background-color: #f2e7bf;
+  border: 2px solid #ccc19b;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.57);
+  text-align: center;
+}
+
+button:hover {
+  background-color: #f7eecf;
+}
+
+button:active {
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.57);
+  transform: translate(2px, 2px);
+}
+
+#player1Row {
+  margin-bottom: auto;
+  margin-top: 10px;
+}
+#player2Row {
+  margin-top: auto;
+  margin-bottom: 10px;
+}
+
+.color {
+  background-color: #f2e7bf;
+}
+input {
+  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.57);
+}

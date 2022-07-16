@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Style-->
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- End Style-->
+
+    <title>RollinDice</title>
+  </head>
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div class="row board">
+          <div class="col d-none d-xl-block side"></div>
+          <div class="col col-xl-10 d-flex flex-column align-items-stretch">
+            <!--Player 1-->
+            <div class="row mt-2 mt-md-5" id="player1Row">
+              <div class="col-md-6">
+                <div
+                  class="playerBox p1box mx-md-5 d-flex flex-column justify-content-around"
+                >
+                  <div id="p1Name">Player 1</div>
+                  Score totale
+                  <div id="p1Score">0</div>
+                  Score courant
+                  <div id="p1Current">0</div>
+                </div>
+              </div>
+              <div class="col d-none d-md-block bgDice"></div>
+            </div>
+            <!--End Player 1-->
+            <!--Middle-->
+            <!--Start panel-->
+            <div
+              id="startPannel"
+              class="row d-flex justify-content-center align-items-md-center d-block"
+            >
+              <div class="row text-center">
+                <h1>
+                  <em class="fa-solid fa-dice"></em>RollinDice<em
+                    class="fa-solid fa-dice"
+                  ></em>
+                </h1>
+              </div>
+              <div class="row mt-2">
+                <div class="col"></div>
+                <div class="col-3 d-flex justify-content-center">
+                  <button id="startGame" role="button">Start</button>
+                </div>
+                <div class="col-3 d-flex justify-content-center">
+                  <button
+                    role="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#rules"
+                  >
+                    >Règles
+                  </button>
+                </div>
+                <div
+                  class="modal fade"
+                  id="rules"
+                  tabindex="-1"
+                  aria-labelledby="rules"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-body color">
+                        <div
+                          class="d-flex justify-content-between align-items-center mb-3"
+                        >
+                          <h5 class="modal-title" id="rulesLabel">Règles</h5>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Sunt, earum modi suscipit quae porro, alias esse
+                          officia beatae, dolore tenetur veniam quam sequi
+                          accusamus veritatis facilis distinctio aliquid
+                          doloremque incidunt!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col"></div>
+              </div>
+            </div>
+            <!--End start panel-->
+
+            <!-- Form panel-->
+
+            <form
+              class="row d-flex justify-content-center align-items-md-center d-block g-3 needs-validation d-none"
+              id="formPannel"
+              novalidate
+            >
+              <div class="text-center">
+                <h2>
+                  <em class="fa-solid fa-dice"></em>Entrez le nom des joueurs<em
+                    class="fa-solid fa-dice"
+                  ></em>
+                </h2>
+              </div>
+
+              <div class="col-6 col-md-3">
+                <label for="p1Name" class="form-label">Player 1</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="p1Name"
+                  id="p1Name"
+                />
+                <div class="invalid-feedback">
+                  Veuillez saisir votre prénom.
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <label for="p2Name" class="form-label">Player 2</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="p2Name"
+                  id="p2Name"
+                />
+                <div class="invalid-feedback">
+                  Veuillez saisir votre prénom.
+                </div>
+              </div>
+              <div class="col-12 d-flex justify-content-center">
+                <button id="validate" type="submit">Valider</button>
+              </div>
+            </form>
+
+            <!-- End form panel-->
+
+            <!-- Button game panel-->
+            <div
+              id="buttonGamePanel"
+              class="row d-flex justify-content-center align-items-md-center d-none"
+            >
+              <div class="col-md-2 d-flex justify-content-center">
+                <button id="rollBtn" role="button">Roll</button>
+              </div>
+              <div class="col-md-2 my-4 d-flex justify-content-center">
+                <img
+                  src="./ressource/image/Dice face/dado-6.svg"
+                  alt="Dé"
+                  height="50px"
+                  width="50px"
+                />
+              </div>
+
+              <div class="col-md-2 d-flex justify-content-center">
+                <button id="holdBtn" role="button">Hold</button>
+              </div>
+            </div>
+            <!--End button game panel-->
+
+            <!--Player 2-->
+            <div class="row mb-2 mb-md-5" id="player2Row">
+              <div class="col d-none d-md-block bgDice"></div>
+              <div class="col col-md-6 d-flex justify-content-end">
+                <div
+                  class="playerBox p2box mx-md-5 d-flex flex-column justify-content-around"
+                >
+                  <div id="p2Name">Player 2</div>
+                  Score totale
+                  <div id="p2Score">0</div>
+                  Score courant
+                  <div id="p2Current">0</div>
+                </div>
+              </div>
+            </div>
+            <!--End Player 2-->
+          </div>
+          <div class="col col-xl-1 d-none d-xl-block side"></div>
+        </div>
+      </div>
+    </main>
+
+    <!--Script-->
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>
