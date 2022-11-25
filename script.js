@@ -3,12 +3,23 @@ const formPannel = document.querySelector("#formPannel");
 const buttonGamePanel = document.querySelector("#buttonGamePanel");
 const validate = document.querySelector("#validate");
 
-let inputs = document.querySelectorAll("input");
+const inputs = document.querySelectorAll("input");
 
-let p1Input = document.querySelector("#p1Input");
-let p2Input = document.querySelector("#p2Input");
-let p1Name = document.querySelector("#p1Name");
-let p2Name = document.querySelector("#p2Name");
+const p1Input = document.querySelector("#p1Input");
+const p2Input = document.querySelector("#p2Input");
+const p1Name = document.querySelector("#p1Name");
+const p2Name = document.querySelector("#p2Name");
+
+const rollBtn = document.querySelector("#rollBtn");
+const holdBtn = document.querySelector("#holdBtn");
+const diceFace = document.querySelector("#diceFace");
+
+const p1Score = document.querySelector("#p1Score");
+const p1Current = document.querySelector("#p1Current");
+const p1Box = document.querySelector("#p1box");
+const p2Score = document.querySelector("#p2Score");
+const p2Current = document.querySelector("#p2Current");
+const p2Box = document.querySelector("#p2Box");
 
 let removeAddClass = (vanish, appear) => {
   vanish.classList.remove("d-block");
@@ -16,23 +27,23 @@ let removeAddClass = (vanish, appear) => {
   appear.classList.remove("d-none");
   appear.classList.add("d-block");
 };
-
+// Star Game
 startGame.addEventListener("click", function () {
   removeAddClass(startPannel, formPannel);
 });
+
+// Check and change players name
 
 formPannel.addEventListener("submit", handleSubmit);
 
 function handleSubmit(e) {
   e.preventDefault();
   checkName();
-  changeName(p1Input, p1Name);
-  changeName(p2Input, p2Name);
 }
 
 function checkName() {
   inputs.forEach((input) => {
-    if (input.value === "" || input.value == null) {
+    if (input.value === "" || input.value == null || input.value.length > 10) {
       input.classList.remove("is-valid");
       input.classList.add("is-invalid");
       input.nextElementSibling.style.display = "block";
@@ -47,9 +58,106 @@ function checkName() {
     p2Input.classList.contains("is-valid")
   ) {
     removeAddClass(formPannel, buttonGamePanel);
+    changeName(p1Input, p1Name);
+    changeName(p2Input, p2Name);
+    newGame();
   }
 }
 
 function changeName(input, name) {
   name.textContent = input.value;
+}
+
+// Game
+
+let roll = 0;
+let scorePlayer1 = 0;
+let scorePlayer2 = 0;
+let currentScoreP1 = 0;
+let currentScoreP2 = 0;
+let currentPlayer = "player1";
+
+function newGame() {
+  p1Score.textContent = 0;
+  p1Current.textContent = 0;
+  p2Score.textContent = 0;
+  p2Current.textContent = 0;
+  scorePlayer1 = 0;
+  scorePlayer2 = 0;
+  currentPlayer = "player1";
+}
+
+rollBtn.addEventListener("click", function () {
+  roll = randomRoll();
+
+  console.log(roll);
+  turn(roll);
+});
+
+function turn(score) {
+  if (currentPlayer === "player1") {
+    if (score === 1) {
+      currentScoreP1 = 0;
+      p1Current.textContent = 0;
+      changePlayer();
+    } else {
+      currentScoreP1 += score;
+      p1Current.textContent = currentScoreP1;
+    }
+  } else {
+    if (score === 1) {
+      currentScoreP2 = 0;
+      p2Current.textContent = 0;
+      changePlayer();
+    } else {
+      currentScoreP2 += score;
+      p2Current.textContent = currentScoreP2;
+    }
+  }
+}
+
+function randomRoll() {
+  let score = Math.floor(Math.random() * (7 - 1)) + 1;
+  changeDiceFace(score);
+  return score;
+}
+
+function changePlayer() {
+  currentPlayer === "player1"
+    ? (currentPlayer = "player2")
+    : (currentPlayer = "player1");
+
+  roll = 0;
+}
+
+function changeDiceFace(roll) {
+  diceFace.src = "./ressource/image/Dice face/dado-" + roll + ".svg";
+}
+
+holdBtn.addEventListener("click", function () {
+  holdScore();
+});
+
+function holdScore() {
+  if (currentPlayer === "player1") {
+    scorePlayer1 += currentScoreP1;
+    if (scorePlayer1 < 100) {
+      p1Score.textContent = scorePlayer1;
+      p1Current.textContent = 0;
+      currentScoreP1 = 0;
+      changePlayer();
+    } else {
+      p1Score.textContent = 100;
+    }
+  } else {
+    scorePlayer2 += currentScoreP2;
+    if (scorePlayer2 < 100) {
+      p2Score.textContent = scorePlayer2;
+      changePlayer();
+      p2Current.textContent = 0;
+      currentScoreP2 = 0;
+    } else {
+      p2Score.textContent = 100;
+    }
+  }
 }

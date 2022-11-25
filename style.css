@@ -36,15 +36,16 @@ main {
   height: 10em;
   border: 2px solid #ccc19b;
   text-align: center;
-  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.57);
 }
 
 .p1box {
   border-radius: 5px 5px 40px 5px;
+  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.57);
 }
 
 .p2box {
   border-radius: 40px 5px 5px 5px;
+  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.57);
 }
 
 button {
