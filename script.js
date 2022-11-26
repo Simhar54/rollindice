@@ -1,6 +1,8 @@
 const startPannel = document.querySelector("#startPannel");
+const startGame = document.querySelector("#startGame");
 const formPannel = document.querySelector("#formPannel");
 const buttonGamePanel = document.querySelector("#buttonGamePanel");
+const endGamePannel = document.querySelector("#endGamePannel");
 const validate = document.querySelector("#validate");
 
 const inputs = document.querySelectorAll("input");
@@ -21,13 +23,16 @@ const p2Score = document.querySelector("#p2Score");
 const p2Current = document.querySelector("#p2Current");
 const p2Box = document.querySelector("#p2Box");
 
+const newGamePlus = document.querySelector("#newGamePlus");
+const andTheWinner = document.querySelector("#andTheWinner");
+
 let removeAddClass = (vanish, appear) => {
   vanish.classList.remove("d-block");
   vanish.classList.add("d-none");
   appear.classList.remove("d-none");
   appear.classList.add("d-block");
 };
-// Star Game
+// Start Game
 startGame.addEventListener("click", function () {
   removeAddClass(startPannel, formPannel);
 });
@@ -68,15 +73,6 @@ function changeName(input, name) {
   name.textContent = input.value;
 }
 
-// Game
-
-let roll = 0;
-let scorePlayer1 = 0;
-let scorePlayer2 = 0;
-let currentScoreP1 = 0;
-let currentScoreP2 = 0;
-let currentPlayer = "player1";
-
 function newGame() {
   p1Score.textContent = 0;
   p1Current.textContent = 0;
@@ -87,12 +83,31 @@ function newGame() {
   currentPlayer = "player1";
 }
 
+// Game
+
+let roll = 0;
+let scorePlayer1 = 0;
+let scorePlayer2 = 0;
+let currentScoreP1 = 0;
+let currentScoreP2 = 0;
+let currentPlayer = "player1";
+
 rollBtn.addEventListener("click", function () {
   roll = randomRoll();
 
   console.log(roll);
   turn(roll);
 });
+
+function randomRoll() {
+  let score = Math.floor(Math.random() * (7 - 1)) + 1;
+  changeDiceFace(score);
+  return score;
+}
+
+function changeDiceFace(roll) {
+  diceFace.src = "./ressource/image/Dice face/dado-" + roll + ".svg";
+}
 
 function turn(score) {
   if (currentPlayer === "player1") {
@@ -116,22 +131,12 @@ function turn(score) {
   }
 }
 
-function randomRoll() {
-  let score = Math.floor(Math.random() * (7 - 1)) + 1;
-  changeDiceFace(score);
-  return score;
-}
-
 function changePlayer() {
   currentPlayer === "player1"
     ? (currentPlayer = "player2")
     : (currentPlayer = "player1");
 
   roll = 0;
-}
-
-function changeDiceFace(roll) {
-  diceFace.src = "./ressource/image/Dice face/dado-" + roll + ".svg";
 }
 
 holdBtn.addEventListener("click", function () {
@@ -148,6 +153,7 @@ function holdScore() {
       changePlayer();
     } else {
       p1Score.textContent = 100;
+      endGame();
     }
   } else {
     scorePlayer2 += currentScoreP2;
@@ -158,6 +164,27 @@ function holdScore() {
       currentScoreP2 = 0;
     } else {
       p2Score.textContent = 100;
+      endGame();
     }
   }
 }
+
+function endGame() {
+  removeAddClass(buttonGamePanel, endGamePannel);
+  if (scorePlayer1 < 100) {
+    winnersName(p1Name);
+  } else {
+    winnersName(p2Name);
+  }
+}
+
+function winnersName(winner) {
+  andTheWinner.textContent = " " + winner.textContent + " a gagné la partie";
+}
+
+// END GAME PANEL
+
+newGamePlus.addEventListener("click", function () {
+  newGame();
+  removeAddClass(endGamePannel, buttonGamePanel);
+});
