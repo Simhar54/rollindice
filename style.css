@@ -38,12 +38,12 @@ main {
   text-align: center;
 }
 
-.p1box {
+#p1Box {
   border-radius: 5px 5px 40px 5px;
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.57);
 }
 
-.p2box {
+#p2Box {
   border-radius: 40px 5px 5px 5px;
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.57);
 }
@@ -79,11 +79,7 @@ button:active {
 .color {
   background-color: #f2e7bf;
 }
+
 input {
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.57);
-}
-
-.opac {
-  display: block;
-  opacity: 0;
 }
