@@ -7,31 +7,38 @@ const validate = document.querySelector("#validate");
 
 const inputs = document.querySelectorAll("input");
 
-const p1Input = document.querySelector("#p1Input");
-const p2Input = document.querySelector("#p2Input");
-const p1Name = document.querySelector("#p1Name");
-const p2Name = document.querySelector("#p2Name");
-
 const rollBtn = document.querySelector("#rollBtn");
 const holdBtn = document.querySelector("#holdBtn");
 const diceFace = document.querySelector("#diceFace");
 
-const p1Score = document.querySelector("#p1Score");
-const p1Current = document.querySelector("#p1Current");
-const p1Box = document.querySelector("#p1box");
-const p2Score = document.querySelector("#p2Score");
-const p2Current = document.querySelector("#p2Current");
-const p2Box = document.querySelector("#p2Box");
-
 const newGamePlus = document.querySelector("#newGamePlus");
 const andTheWinner = document.querySelector("#andTheWinner");
 
-let removeAddClass = (vanish, appear) => {
-  vanish.classList.remove("d-block");
-  vanish.classList.add("d-none");
-  appear.classList.remove("d-none");
-  appear.classList.add("d-block");
+const scoreTotal = [p1Score, p2Score];
+const scoreCurrent = [p1Current, p2Current];
+
+const player1 = {
+  playerInput: document.querySelector("#p1Input"),
+  playerName: document.querySelector("#p1Name"),
+  playerScore: document.querySelector("#p1Score"),
+  playerCurrentScore: document.querySelector("#p1Current"),
+  playerBox: document.querySelector("#p1Box"),
+  currentScore: 0,
+  scoreTotal: 0,
 };
+
+const player2 = {
+  playerInput: document.querySelector("#p2Input"),
+  playerName: document.querySelector("#p2Name"),
+  playerScore: document.querySelector("#p2Score"),
+  playerCurrentScore: document.querySelector("#p2Current"),
+  playerBox: document.querySelector("#p2Box"),
+  currentScore: 0,
+  scoreTotal: 0,
+};
+
+const players = [player1, player2];
+
 // Start Game
 startGame.addEventListener("click", function () {
   removeAddClass(startPannel, formPannel);
@@ -61,42 +68,32 @@ function checkName() {
   if (
     p1Input.classList.contains("is-valid") &&
     p2Input.classList.contains("is-valid")
-  ) {
-    removeAddClass(formPannel, buttonGamePanel);
-    changeName(p1Input, p1Name);
-    changeName(p2Input, p2Name);
-    newGame();
-  }
-}
-
-function changeName(input, name) {
-  name.textContent = input.value;
+  )
+    players.forEach((player) => {
+      player.playerName.textContent = player.playerInput.value;
+    });
+  newGame();
+  removeAddClass(formPannel, buttonGamePanel);
 }
 
 function newGame() {
-  p1Score.textContent = 0;
-  p1Current.textContent = 0;
-  p2Score.textContent = 0;
-  p2Current.textContent = 0;
-  scorePlayer1 = 0;
-  scorePlayer2 = 0;
-  currentPlayer = "player1";
+  player1.playerScore.textContent = 0;
+  player1.playerCurrentScore.textContent = 0;
+  player2.playerScore.textContent = 0;
+  player2.playerCurrentScore.textContent = 0;
+  player1.scoreTotal = 0;
+  player2.scoreTotal = 0;
+  currentPlayer = player1;
 }
 
 // Game
-
+let currentPlayer = 1;
 let roll = 0;
-let scorePlayer1 = 0;
-let scorePlayer2 = 0;
-let currentScoreP1 = 0;
-let currentScoreP2 = 0;
-let currentPlayer = "player1";
 
 rollBtn.addEventListener("click", function () {
   roll = randomRoll();
-
   console.log(roll);
-  turn(roll);
+  turn(roll, currentPlayer);
 });
 
 function randomRoll() {
@@ -109,77 +106,49 @@ function changeDiceFace(roll) {
   diceFace.src = "./ressource/image/Dice face/dado-" + roll + ".svg";
 }
 
-function turn(score) {
-  if (currentPlayer === "player1") {
-    if (score === 1) {
-      currentScoreP1 = 0;
-      p1Current.textContent = 0;
-      changePlayer();
-    } else {
-      currentScoreP1 += score;
-      p1Current.textContent = currentScoreP1;
-    }
+function turn(score, player) {
+  if (score === 1) {
+    player.currentScore = 0;
+    player.playerCurrentScore.textContent = 0;
+    changePlayer();
   } else {
-    if (score === 1) {
-      currentScoreP2 = 0;
-      p2Current.textContent = 0;
-      changePlayer();
-    } else {
-      currentScoreP2 += score;
-      p2Current.textContent = currentScoreP2;
-    }
+    player.currentScore += score;
+    player.playerCurrentScore.textContent = player.currentScore;
   }
 }
 
 function changePlayer() {
-  currentPlayer === "player1"
-    ? (currentPlayer = "player2")
-    : (currentPlayer = "player1");
+  currentPlayer = currentPlayer === player1 ? player2 : player1;
 
   roll = 0;
 }
 
 holdBtn.addEventListener("click", function () {
-  holdScore();
+  holdScore(currentPlayer);
 });
 
-function holdScore() {
-  if (currentPlayer === "player1") {
-    scorePlayer1 += currentScoreP1;
-    if (scorePlayer1 < 100) {
-      p1Score.textContent = scorePlayer1;
-      p1Current.textContent = 0;
-      currentScoreP1 = 0;
-      changePlayer();
-    } else {
-      p1Score.textContent = 100;
-      endGame();
-    }
+function holdScore(player) {
+  player.scoreTotal += player.currentScore;
+  console.log(player.currentScore);
+  console.log(player.scoreTotal);
+  if (player.scoreTotal < 100) {
+    player.playerScore.textContent = player.scoreTotal;
+    player.playerCurrentScore.textContent = 0;
+    player.currentScore = 0;
+    changePlayer();
   } else {
-    scorePlayer2 += currentScoreP2;
-    if (scorePlayer2 < 100) {
-      p2Score.textContent = scorePlayer2;
-      changePlayer();
-      p2Current.textContent = 0;
-      currentScoreP2 = 0;
-    } else {
-      p2Score.textContent = 100;
-      endGame();
-    }
+    player.playerScore.textContent = 100;
+    endGame(player);
   }
 }
 
-function endGame() {
+function endGame(player) {
   removeAddClass(buttonGamePanel, endGamePannel);
-  if (scorePlayer1 < 100) {
-    winnersName(p1Name);
-  } else {
-    winnersName(p2Name);
-  }
+  winnersName(player.playerName);
 }
 
 function winnersName(winner) {
-  andTheWinner.textContent = " " + winner.textContent + " a gagné la partie";
+  andTheWinner.textContent = " " + winner.textContent + " a gagné la partie! ";
 }
 
 // END GAME PANEL
@@ -188,3 +157,20 @@ newGamePlus.addEventListener("click", function () {
   newGame();
   removeAddClass(endGamePannel, buttonGamePanel);
 });
+
+// ANIMATION AND SOUND FUNCTION
+
+function hide(div) {
+  div.classList.remove("d-block");
+  div.classList.add("d-none");
+}
+
+function show(div) {
+  div.classList.remove("d-none");
+  div.classList.add("d-block");
+}
+
+let removeAddClass = (vanish, appear) => {
+  hide(vanish);
+  show(appear);
+};
