@@ -229,7 +229,7 @@ function audioOne() {
 
 function boxPlayerAnimIn(player) {
   player.playerBox.style =
-    "transform:scale(1.02); transition: transform 70ms ease-in; box-shadow: 4px 4px 3px rgba(248,248,255,0.57);";
+    "transform:scale(1.02); transition: transform 70ms ease-in; box-shadow: 4px 4px 3px rgba(248,248,255,0.4);";
 }
 
 function boxPlayerAnimOut(player) {

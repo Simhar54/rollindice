@@ -4,10 +4,32 @@
 
 main {
   width: 100vw;
-  background-color: #598d5a;
+  /*ackground-color: #598d5a;*/
   font-family: "Lato", sans-serif;
   font-size: medium;
+  background: hsla(121, 23%, 45%, 1);
+
+  background: linear-gradient(
+    315deg,
+    hsla(121, 23%, 45%, 1) 54%,
+    hsla(120, 11%, 20%, 1) 99%
+  );
+
+  background: -moz-linear-gradient(
+    315deg,
+    hsla(121, 23%, 45%, 1) 54%,
+    hsla(120, 11%, 20%, 1) 99%
+  );
+
+  background: -webkit-linear-gradient(
+    315deg,
+    hsla(121, 23%, 45%, 1) 54%,
+    hsla(120, 11%, 20%, 1) 99%
+  );
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#598D5A", endColorstr="#2E392E", GradientType=1 );
 }
+/* #2E392E */
 
 .board {
   height: 100vh;
@@ -31,19 +53,45 @@ main {
 }
 
 .playerBox {
-  background-color: #f2e7bf;
+  background: hsla(46, 66%, 82%, 1);
+
+  background: linear-gradient(
+    180deg,
+    hsla(46, 66%, 82%, 1) 54%,
+    hsla(47, 70%, 84%, 1) 99%
+  );
+
+  background: -moz-linear-gradient(
+    180deg,
+    hsla(46, 66%, 82%, 1) 54%,
+    hsla(47, 70%, 84%, 1) 99%
+  );
+
+  background: -webkit-linear-gradient(
+    180deg,
+    hsla(46, 66%, 82%, 1) 54%,
+    hsla(47, 70%, 84%, 1) 99%
+  );
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#EFE1B1", endColorstr="#f3e7bb", GradientType=1 );
+
   width: 60%;
   height: 10em;
   border: 2px solid #ccc19b;
   text-align: center;
+  max-width: 300px;
 }
 
 #p1Box {
+  margin-left: 20px;
+  margin-top: 30px;
   border-radius: 5px 5px 40px 5px;
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.57);
 }
 
 #p2Box {
+  margin-right: 20px;
+  margin-bottom: 30px;
   border-radius: 40px 5px 5px 5px;
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.57);
 }
