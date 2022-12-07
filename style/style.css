@@ -38,7 +38,7 @@ main {
 
 .side {
   background-color: black;
-  background-image: url(./ressource/image/six-sided-dice_too.svg);
+  background-image: url(../ressource/image/six-sided-dice_too.svg);
   color: white;
   background-position: center;
   text-align: center;
@@ -46,7 +46,7 @@ main {
 }
 
 .bgDice {
-  background-image: url(./ressource/image/six-sided-dice_too.svg);
+  background-image: url(../ressource/image/six-sided-dice_too.svg);
 
   background-position: center center;
   background-repeat: no-repeat;
